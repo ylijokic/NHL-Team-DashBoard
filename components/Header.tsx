@@ -9,7 +9,6 @@ const Header = () => {
         </div>
         <Link href='/'><a>Home</a></Link>
         <Link href='/teams'><a>Teams</a></Link>
-        <Link href='/players'><a>Players</a></Link>
     </nav>
   )
 }

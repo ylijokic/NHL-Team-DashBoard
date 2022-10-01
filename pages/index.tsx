@@ -20,13 +20,6 @@ const Home: NextPage = () => {
               <p>Explore detailed information about all 32 NHL franchises!</p>
             </a>
           </Link>
-
-          <Link href='/players'>
-            <a className={styles.card}>
-              <h2>NHL PLayers &rarr;</h2>
-              <p>Learn more about your favorite NHL players!</p>
-            </a>
-          </Link>
         </div>
       </main>
     </div>
