@@ -37,20 +37,20 @@ interface Franchise {
     teamName: string;
 }
 
-interface Person {
+export interface Person {
     fullName: string;
     id: number;
     link: string;
 }
 
-interface Position {
+export interface Position {
     abbreviation: string;
     code: string;
     name: string;
     type: string;
 }
 
-interface Roster {
+export interface Roster {
     jerseyNumber: string;
     person: Person;
     position: Position;

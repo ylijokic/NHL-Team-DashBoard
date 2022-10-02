@@ -18,24 +18,15 @@
 .teamContent:active {
     color: #0070f3;
     border-color: #0070f3;
+    cursor: pointer;
 }
 
-.teamDetails {
+.teamDetailsContainer {
     margin: 1.5rem;
-    padding: 1rem;
-    text-align: left;
-    color: inherit;
-    text-decoration: none;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    transition: color 0.15s ease, border-color 0.15s ease;
-}
-
-.playerContent {
-    margin: .5rem;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     color: inherit;
     text-decoration: none;
     border: 1px solid #ddd;
@@ -43,9 +34,16 @@
     transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.playerContent:hover,
-.playerContent:focus,
-.playerContent:active {
+.roster a:hover,
+.roster a:focus,
+.roster a:active {
+    text-decoration: underline;
     color: #0070f3;
-    border-color: #0070f3;
+    cursor: pointer;
+}
+
+.teamImage {
+    flex: 1;
+    max-width: 100px;
+    max-height: 100px;
 }

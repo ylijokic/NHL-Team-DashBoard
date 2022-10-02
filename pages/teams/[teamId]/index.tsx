@@ -3,6 +3,7 @@ import { Team } from '../../../types/Team';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import styles from '../../../styles/Teams.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export interface TeamInfoProps {
   team: Team;
@@ -35,30 +36,26 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 const TeamInfo = ({ team }: TeamInfoProps) => {
-  const { name, conference, division, roster } = team;
+  const { name, conference, division } = team;
+  const imageUrl = `https://www-league.nhlstatic.com/nhl.com/builds/site-core/d1b262bacd4892b22a38e8708cdb10c8327ff73e_1579810224/images/logos/team/current/team-${team.id}-light.svg`;
   return (
     <>
-      <div className={styles.teamDetails}>
-          <h2>{name}</h2>
-          <p>{`${conference.name} Conference`}</p>
-          <p>{`${division.name} Division`}</p>
-          <Link href={`/teams/${team.id}/players`}>
-            <a><h3>Roster:</h3></a>
-          </Link>
-          {roster.roster.map((player: any) => {
-            const { person, jerseyNumber } = player;
-            const displayNumber = jerseyNumber ? `#${jerseyNumber}` : '';
-            return (
-                <Link href={`/teams/${team.id}/players/${person.id}`} key={person.id}>
-                    <a>
-                        <div className={styles.playerContent}>
-                            <p>{person.fullName}</p>
-                            <p>{displayNumber}</p>
-                        </div>
-                    </a>
-                </Link>
-            );
-          })}
+      <div className={styles.teamDetailsContainer}>
+          <div className={styles.teamDetails}>
+            <h2>{name}</h2>
+            <p>{`${conference.name} Conference`}</p>
+            <p>{`${division.name} Division`}</p>
+            <Link href={`/teams/${team.id}/players`}>
+                <div className={styles.roster}>
+                    <a><h3>View Team Roster</h3></a>
+                </div>
+            </Link>
+          </div>
+          <div className={styles.teamImage}>
+            {imageUrl &&
+                <Image src={imageUrl} alt='Dynamic Image' layout='responsive' width={10} height={10}/>
+            }
+          </div>
       </div>
     </>
   )
