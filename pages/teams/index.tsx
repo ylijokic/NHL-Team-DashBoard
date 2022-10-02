@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GetStaticProps } from 'next';
 import styles from '../../styles/Teams.module.css';
 import Link from 'next/link';
@@ -18,22 +18,42 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 const Teams = ({ teams }: TeamsProps) => {
+  const [inputText, setInputText] = useState<string>('');
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputText(e.target.value);
+  }
+
+  const filteredTeams = teams.filter((team) => team.name.toLowerCase().includes(inputText.toLowerCase()));
+
   return (
     <>
-      <h1 className={styles.title}>NHL Teams</h1>
-      {teams.map((team: Team) => {
-        return (
-          <Link href={`/teams/${team.id}`} key={team.id}>
-            <div className={styles.teamContent}>
-              <a>
-                <h2>{team.name}</h2>
-                <p>{`${team.conference.name} Conference`}</p>
-                <p>{`${team.division.name} Division`}</p>
-              </a>
-            </div>
-          </Link>
-        );
-      })}
+      <div className={styles.searchContainer}>
+        <h1>NHL Teams</h1>
+        <input 
+            className={styles.teamSearch}
+            type='text' 
+            placeholder='Search for a team...' 
+            onChange={onInputChange} 
+            value={inputText}
+        />
+      </div>
+      {filteredTeams.map(
+          (team: Team) => {
+            return (
+              <Link href={`/teams/${team.id}`} key={team.id}>
+                <div className={styles.teamContent}>
+                  <a>
+                    <h2>{team.name}</h2>
+                    <p>{`${team.conference.name} Conference`}</p>
+                    <p>{`${team.division.name} Division`}</p>
+                  </a>
+                </div>
+              </Link>
+            );
+          }
+        )
+      }
     </>
   )
 }

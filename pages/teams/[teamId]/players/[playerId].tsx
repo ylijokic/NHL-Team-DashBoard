@@ -20,24 +20,52 @@ const PlayerInfo = () => {
     fetchPlayerInfo();
   }, [playerId])
 
-  const imageUrl = `http://nhl.bamcontent.com/images/headshots/current/60x60/${playerId}.jpg`;
+  const imageUrl = `http://nhl.bamcontent.com/images/headshots/current/168x168/${playerId}.jpg`;
   return player ? (
-    <>
-      <p>{`Name: ${player.fullName}`}</p>
-      <p>{`Team: ${player.currentTeam.name}`}</p>
-      <p>{`Age: ${player.currentAge}`}</p>
-      <p>{`Jersey Number: ${player.primaryNumber}`}</p>
-      <p>{`Position: ${player.primaryPosition.name}`}</p>
-      <p>{`Shooting/Catching Hand: ${player.shootsCatches}`}</p>
-      <p>{`Nationality: ${player.nationality}`}</p>
-      <p>{`Is Captain: ${player.captain}`}</p>
-      <p>{`Is Rookie: ${player.rookie}`}</p>
-      <div className={styles.playerPicture}>
-      {imageUrl &&
-        <Image src={imageUrl} alt='Player Headshot' layout='responsive' width={60} height={60}/>
-      }
+    <div className={styles.playerDetailsContainer}>
+      <div className={styles.playerDetails}>
+        <h2>{player.fullName}</h2>
+        <table>
+          <tr>
+            <td>Team: </td>
+            <td>{player.currentTeam.name}</td>
+          </tr>
+          <tr>
+            <td>Age: </td>
+            <td>{player.currentAge}</td>
+          </tr>
+          <tr>
+            <td>Jersey Number: </td>
+            <td>{player.primaryNumber}</td>
+          </tr>
+          <tr>
+            <td>Position: </td>
+            <td>{player.primaryPosition.name}</td>
+          </tr>
+          <tr>
+            <td>Shooting/Catching Hand: </td>
+            <td>{player.shootsCatches}</td>
+          </tr>
+          <tr>
+            <td>Nationality: </td>
+            <td>{player.nationality}</td>
+          </tr>
+          <tr>
+            <td>Is a Captain/Alternative Captain: </td>
+            <td>{player.captain || player.alternateCaptain ? 'Yes' : 'No'}</td>
+          </tr>
+          <tr>
+            <td>Is a Rookie: </td>
+            <td>{player.rookie ? 'Yes' : 'No'}</td>
+          </tr>
+        </table>
       </div>
-    </>
+      <div className={styles.playerPicture}>
+        {imageUrl &&
+          <Image src={imageUrl} alt='Player Headshot' layout='responsive' width={168} height={168}/>
+        }
+      </div>
+    </div>
   ) : <div></div>
 }
 

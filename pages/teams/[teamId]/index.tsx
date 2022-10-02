@@ -47,13 +47,13 @@ const TeamInfo = ({ team }: TeamInfoProps) => {
             <p>{`${division.name} Division`}</p>
             <Link href={`/teams/${team.id}/players`}>
                 <div className={styles.roster}>
-                    <a><h3>View Team Roster</h3></a>
+                    <a><button>View Team Roster</button></a>
                 </div>
             </Link>
           </div>
           <div className={styles.teamImage}>
             {imageUrl &&
-                <Image src={imageUrl} alt='Dynamic Image' layout='responsive' width={10} height={10}/>
+                <Image src={imageUrl} alt='Dynamic Image' layout='responsive' width={168} height={168}/>
             }
           </div>
       </div>
