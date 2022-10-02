@@ -2,7 +2,7 @@
 
 describe('The Team Info page works as expected (/teams/{teamId} route)', () => {
   it('should navigate to the team info page', () => {
-    // Start from the index page
+    // Start from the teams page
     cy.visit('http://localhost:3000/teams');
 
     cy.get('a').last().click();
