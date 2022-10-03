@@ -3,6 +3,8 @@ import { GetStaticProps } from 'next';
 import styles from '../../styles/Teams.module.css';
 import Link from 'next/link';
 import { Team } from '../../types/Team';
+import BackButton from '../../components/BackButton';
+import SearchBarContainer from '../../components/SearchBarContainer';
 
 export interface TeamsProps {
   teams: Team[];
@@ -28,16 +30,13 @@ const Teams = ({ teams }: TeamsProps) => {
 
   return (
     <>
-      <div className={styles.searchContainer}>
-        <h1>NHL Teams</h1>
-        <input 
-            className={styles.teamSearch}
-            type='text' 
-            placeholder='Search for a team...' 
-            onChange={onInputChange} 
-            value={inputText}
-        />
-      </div>
+      <BackButton href='/' text='Home' />
+      <SearchBarContainer
+        headerText='NHL Teams'
+        placeholder='Search for a team...'
+        value={inputText}
+        onChange={onInputChange} 
+      />
       {filteredTeams.map(
           (team: Team) => {
             return (

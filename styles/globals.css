@@ -45,3 +45,23 @@ nav .logo {
     color: #777;
     border-top: 1px solid #eaeaea;
 }
+
+.searchContainer {
+    margin: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchInput {
+    padding: 1rem;
+    min-width: 10rem;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.backButton:hover {
+    color: #0070f3;
+}

@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styles from '../../../../styles/Players.module.css';
 import { Roster } from '../../../../types/Team';
+import BackButton from '../../../../components/BackButton';
+import SearchBarContainer from '../../../../components/SearchBarContainer';
 
 const Roster = () => {
   const [players, setPlayers] = useState<Roster[]>([]);
@@ -34,16 +36,13 @@ const Roster = () => {
 
   return (
     <>
-      <div className={styles.searchContainer}>
-        <h1>{`${teamName} Roster:`}</h1>
-        <input 
-            className={styles.playerSearch}
-            type='text' 
-            placeholder='Search for a player...' 
-            onChange={onInputChange} 
-            value={inputText}
-        />
-      </div>
+      <BackButton href={`/teams/${teamId}`} text={`${teamName} Info Page`} />
+      <SearchBarContainer
+        headerText={`${teamName} Roster:`}
+        placeholder='Search for a player...'
+        value={inputText}
+        onChange={onInputChange} 
+      />
       {filteredplayers && filteredplayers.map((player: Roster) => {
         const { person, jerseyNumber, position } = player;
         const displayNumber = jerseyNumber ? `(#${jerseyNumber})` : '';
