@@ -1,8 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Description
 
-## Getting Started
+This NHL profile dashboard application allows users to view information related to all 32 NHL teams, as well as the NHL players currently on the teams' rosters.
 
-First, run the development server:
+### Routes:
+
+`/teams`
+- Lists all NHL teams.
+
+`/teams/{teamId}`
+- Displays information for a specific team.
+
+`/teams/{teamId}/players`
+- Lists all players on the roster for a specific team.
+
+`/teams/{teamId}/players/{playerId}`
+- Displays information for a specific player. 
+
+# Getting Started
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). 
+
+#### Visit [sportradar-frontend-exercise.vercel.app/](https://sportradar-frontend-exercise.vercel.app/) to view deployed app.
+
+#### To run the development server locally:
 
 ```bash
 npm run dev
@@ -10,25 +30,28 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# Testing 
+- Cypress
+    - With the Next.js server running, start Cypress with the following command:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+  ```bash
+  npm run cypress
+  ```
 
-## Learn More
+# Technologies Used
+- Next.js
+- React
+- TypeScript
+- Cypress
+- Jest
 
-To learn more about Next.js, take a look at the following resources:
+# Notes / Future Steps
+1. Searching through the list of Teams and Players is implemented on the client side with component state and the useState hook.
+   - There is no need for a state management library for such a small application, but as the amount of component-level state grows a library like Redux could be introduced.
+2. Utilizing the API endpoint modifiers could be a good way to pull in more information and build out additional features.
+   - The `?expand=team.stats` and `?stats=statsSingleSeason&season={playerId}` endpoint modifiers would be a good way to add additional information for users who are mostly interested in NHL team and player stats.
+3. Adding more test coverage for the different components and pages would be a priority future step.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
