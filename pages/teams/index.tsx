@@ -40,7 +40,7 @@ const Teams = ({ teams }: TeamsProps) => {
       {filteredTeams.map(
           (team: Team) => {
             return (
-              <Link href={`/teams/${team.id}`} key={team.id}>
+              <Link href={`/teams/${team.id}`} key={team.id} data-testid='teamLink'>
                 <div className={styles.teamContent}>
                   <a>
                     <h2>{team.name}</h2>

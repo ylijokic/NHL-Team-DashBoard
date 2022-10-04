@@ -7,7 +7,7 @@ interface PlayerDetailsProps {
 
 const PlayerDetails = ({ player }: PlayerDetailsProps) => {
   return (
-    <table>
+    <table data-testid='playerDetails'>
         <tbody>
             <tr>
                 <td>Team: </td>

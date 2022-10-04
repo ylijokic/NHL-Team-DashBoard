@@ -14,7 +14,7 @@ const SearchBarContainer = ({
     onChange
 }: SearchBarContainerProps) => {
   return (
-      <div className='searchContainer'>
+      <div className='searchContainer' data-testid='searchArea'>
         <h1>{headerText}</h1>
         <input 
           className='searchInput'

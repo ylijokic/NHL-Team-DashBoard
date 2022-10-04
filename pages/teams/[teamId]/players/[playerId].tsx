@@ -33,7 +33,14 @@ const PlayerInfo = () => {
         </div>
         <div className={styles.playerPicture}>
           {imageUrl &&
-            <Image src={imageUrl} alt='Player Headshot' layout='responsive' width={168} height={168}/>
+            <Image 
+              src={imageUrl} 
+              alt='Player Headshot' 
+              layout='responsive' 
+              width={168} 
+              height={168} 
+              data-testid='playerImage'
+            />
           }
         </div>
       </div>

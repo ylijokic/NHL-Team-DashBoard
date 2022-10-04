@@ -47,7 +47,11 @@ const Roster = () => {
         const { person, jerseyNumber, position } = player;
         const displayNumber = jerseyNumber ? `(#${jerseyNumber})` : '';
         return (
-            <Link href={`/teams/${teamId}/players/${person.id}`} key={person.id}>
+            <Link 
+              href={`/teams/${teamId}/players/${person.id}`} 
+              key={person.id} 
+              data-testid='playerLink'
+            >
                 <a>
                     <div className={styles.playerContent}>
                         <p className={styles.playerName}>{person.fullName}</p>
