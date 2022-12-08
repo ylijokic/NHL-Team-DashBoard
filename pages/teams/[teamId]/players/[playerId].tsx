@@ -13,10 +13,19 @@ const PlayerInfo = () => {
 
   useEffect(() => {
     const fetchPlayerInfo = async () => {
-      const res = await fetch(`https://statsapi.web.nhl.com/api/v1/people/${playerId}`);
-      const data =  await res.json();
-      if (data.people) {
-        setPlayer(data.people[0]);
+      try {
+        const res = await fetch(`https://statsapi.web.nhl.com/api/v1/people/${playerId}`);
+        if (!res.ok) {
+          throw new Error(
+            `This is an HTTP error: The status is ${res.status}`
+          );
+        }
+        const data =  await res.json();
+        if (data.people) {
+          setPlayer(data.people[0]);
+        }
+      } catch (error) {
+        console.log(error);
       }
     }
     fetchPlayerInfo();

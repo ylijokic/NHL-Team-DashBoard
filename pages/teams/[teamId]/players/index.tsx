@@ -16,11 +16,20 @@ const Roster = () => {
 
   useEffect(() => {
     const fetchRosterInfo = async () => {
-      const res = await fetch(`https://statsapi.web.nhl.com/api/v1/teams/${teamId}?expand=team.roster`);
-      const data =  await res.json();
-      if (data.teams) {
-        setTeamName(data.teams[0].teamName);
-        setPlayers(data.teams[0].roster.roster);
+      try {
+        const res = await fetch(`https://statsapi.web.nhl.com/api/v1/teams/${teamId}?expand=team.roster`);
+        if (!res.ok) {
+          throw new Error(
+            `This is an HTTP error: The status is ${res.status}`
+          );
+        }
+        const data =  await res.json();
+        if (data.teams) {
+          setTeamName(data.teams[0].teamName);
+          setPlayers(data.teams[0].roster.roster);
+        }
+      } catch (error) {
+        console.log(error);
       }
     }
     fetchRosterInfo();
