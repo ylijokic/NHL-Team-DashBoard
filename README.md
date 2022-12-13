@@ -20,7 +20,7 @@ This NHL profile dashboard application allows users to view information related 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). 
 
-#### Visit [sportradar-frontend-exercise.vercel.app/](https://sportradar-frontend-exercise.vercel.app/) to view deployed app.
+#### Visit [nhl-team-dashboard.vercel.app/](https://nhl-team-dashboard.vercel.app/) to view deployed app.
 
 #### To run the development server locally:
 
