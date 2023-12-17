@@ -64,7 +64,7 @@ const RosterInfo = ({ roster }: any) => {
         const displayNumber = sweaterNumber ? `(#${sweaterNumber})` : '';
         return (
             <Link 
-              href={`/teams/${teamId}/players/`} 
+              href={`/teams/${teamId}/players/${id}`} 
               key={id} 
               data-testid='playerLink'
             >

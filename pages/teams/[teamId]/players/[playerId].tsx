@@ -1,72 +1,39 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import styles from '../../../../styles/Players.module.css';
 import { Player } from '../../../../types/Player';
 import BackButton from '../../../../components/BackButton';
 import PlayerDetails from '../../../../components/PlayerDetails';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { ITeam } from '../../../../types/Team';
 
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const res = await fetch('https://api-web.nhle.com/v1/roster/${teamId}/20232024');
-//   const data = await res.json();
 
-//   const paths = data.standings.map((team: ITeam) => {
-//     return {
-//       params: { teamId: team.teamAbbrev.default }
-//     }
-//   });
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { teamId, playerId } = context.query;
+  const res = await fetch(`https://api-web.nhle.com/v1/roster/${teamId}/20232024`);
+  const data = await res.json();
+  const teamRoster = [ ...data.forwards, ...data.defensemen, ...data.goalies ];
 
-//   return {
-//     paths,
-//     fallback: true,
-//   }
-// }
+  const player = teamRoster.find((p) => String(p.id) === playerId);
+  
+  return {
+    props: { player }
+  }
+}
 
-// export const getStaticProps: GetStaticProps = async (context) => {
-//   const teamId = context.params?.teamId;
-//   const res = await fetch(`https://api-web.nhle.com/v1/roster/${teamId}/20232024`);
-//   const data = await res.json();
-//   const teamRoster = [ ...data.forwards, ...data.defensemen, ...data.goalies ];
-
-//   return {
-//     props: { roster: teamRoster }
-//   }
-// }
-
-const PlayerInfo = () => {
-  const [player, setPlayer] = useState<Player | undefined>(undefined);
+const PlayerInfo = ({ player }: any) => {
   const router = useRouter();
-  const { teamId, playerId  } = router.query;
+  const { teamId } = router.query;
 
-  useEffect(() => {
-    const fetchPlayerInfo = async () => {
-      try {
-        const res = await fetch(`https://api-web.nhle.com/v1/player/${teamId}/landing`);
-        if (!res.ok) {
-          throw new Error(
-            `This is an HTTP error: The status is ${res.status}`
-          );
-        }
-        const data =  await res.json();
-        if (data) {
-          setPlayer(data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchPlayerInfo();
-  }, [playerId])
-
-  const imageUrl = `http://nhl.bamcontent.com/images/headshots/current/168x168/${playerId}.jpg`;
+  const imageUrl = player.headshot;
   return player ? (
     <>
-      {/* <BackButton href={`/teams/${teamId}/players`} text='Roster Page' />
+      <BackButton href={`/teams/${teamId}/players`} text='Roster Page' />
       <div className={styles.playerDetailsContainer}>
         <div className={styles.playerDetails}>
-          <h2>{player.fullName}</h2>
+          <h2>{player.firstName.default} {player.lastName.default}</h2>
+          <h4>{teamId}</h4>
           <PlayerDetails player={player} />
         </div>
         <div className={styles.playerPicture}>
@@ -81,7 +48,7 @@ const PlayerInfo = () => {
             />
           }
         </div>
-      </div> */}
+      </div>
     </>
   ) : <></>
 }

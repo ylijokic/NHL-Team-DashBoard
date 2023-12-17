@@ -2,7 +2,7 @@ import React from 'react'
 import { Player } from '../types/Player';
 
 interface PlayerDetailsProps {
-    player: Player;
+    player: Player | any;
 }
 
 const PlayerDetails = ({ player }: PlayerDetailsProps) => {
@@ -10,20 +10,16 @@ const PlayerDetails = ({ player }: PlayerDetailsProps) => {
     <table data-testid='playerDetails'>
         <tbody>
             <tr>
-                <td>Team: </td>
-                <td>{player.currentTeam.name}</td>
-            </tr>
-            <tr>
-                <td>Age: </td>
-                <td>{player.currentAge}</td>
+                <td>Birth Date: </td>
+                <td>{player.birthDate}</td>
             </tr>
             <tr>
                 <td>Jersey Number: </td>
-                <td>{player.primaryNumber}</td>
+                <td>{player.sweaterNumber}</td>
             </tr>
             <tr>
                 <td>Position: </td>
-                <td>{player.primaryPosition.name}</td>
+                <td>{player.positionCode}</td>
             </tr>
             <tr>
                 <td>Shooting/Catching Hand: </td>
@@ -31,15 +27,15 @@ const PlayerDetails = ({ player }: PlayerDetailsProps) => {
             </tr>
             <tr>
                 <td>Nationality: </td>
-                <td>{player.nationality}</td>
+                <td>{player.birthCountry}</td>
             </tr>
             <tr>
-                <td>Is a Captain/Alternative Captain: </td>
-                <td>{player.captain || player.alternateCaptain ? 'Yes' : 'No'}</td>
+                <td>Height in Inches: </td>
+                <td>{player.heightInInches}</td>
             </tr>
             <tr>
-                <td>Is a Rookie: </td>
-                <td>{player.rookie ? 'Yes' : 'No'}</td>
+                <td>Weight in Pounds: </td>
+                <td>{player.weightInPounds}</td>
             </tr>
         </tbody>
     </table>
