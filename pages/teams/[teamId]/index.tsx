@@ -1,5 +1,5 @@
 import React from 'react';
-import { Team } from '../../../types/Team';
+import { ITeam } from '../../../types/Team';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import styles from '../../../styles/Teams.module.css';
 import Link from 'next/link';
@@ -7,16 +7,16 @@ import Image from 'next/image';
 import BackButton from '../../../components/BackButton';
 
 export interface TeamInfoProps {
-  team: Team;
+  team: ITeam;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch('https://statsapi.web.nhl.com/api/v1/teams');
+  const res = await fetch('https://api-web.nhle.com/v1/standings/now');
   const data = await res.json();
 
-  const paths = data.teams.map((team: Team) => {
+  const paths = data.standings.map((team: ITeam) => {
     return {
-      params: { teamId: team.id.toString() }
+      params: { teamId: team.teamAbbrev.default }
     }
   });
 
@@ -28,26 +28,27 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const teamId = context.params?.teamId;
-  const res = await fetch(`https://statsapi.web.nhl.com/api/v1/teams/${teamId}?expand=team.roster`);
+  const res = await fetch(`https://api-web.nhle.com/v1/standings/now`);
   const data = await res.json();
+  const team: ITeam = data.standings.find((t: ITeam) => t.teamAbbrev.default === teamId);
 
   return {
-    props: { team: data.teams[0] }
+    props: { team: team }
   }
 }
 
 const TeamInfo = ({ team }: TeamInfoProps) => {
-  const { name, conference, division } = team;
-  const imageUrl = `https://www-league.nhlstatic.com/nhl.com/builds/site-core/d1b262bacd4892b22a38e8708cdb10c8327ff73e_1579810224/images/logos/team/current/team-${team.id}-light.svg`;
+  const { teamName, conferenceName, divisionName } = team;
+  const imageUrl = team.teamLogo;
   return (
     <>
       <BackButton href='/teams' text='Teams' />
       <div className={styles.teamDetailsContainer}>
           <div className={styles.teamDetails}>
-            <h2>{name}</h2>
-            <p>{`${conference.name} Conference`}</p>
-            <p>{`${division.name} Division`}</p>
-            <Link href={`/teams/${team.id}/players`} data-testid='rosterLink'>
+            <h2>{teamName.default}</h2>
+            <p>{`${conferenceName} Conference`}</p>
+            <p>{`${divisionName} Division`}</p>
+            <Link href={`/teams/${team.teamAbbrev.default}/players`} data-testid='rosterLink'>
                 <div className={styles.roster}>
                     <a><button>View Team Roster</button></a>
                 </div>

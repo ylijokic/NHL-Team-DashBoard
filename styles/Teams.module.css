@@ -1,3 +1,9 @@
+.displayFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .teamContent {
     margin: 1.5rem;
     padding: 1rem;

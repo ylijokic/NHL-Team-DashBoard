@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import { GetStaticProps } from 'next';
 import styles from '../../styles/Teams.module.css';
 import Link from 'next/link';
-import { Team } from '../../types/Team';
+import { ITeam, Team } from '../../types/Team';
 import BackButton from '../../components/BackButton';
 import SearchBarContainer from '../../components/SearchBarContainer';
 
 export interface TeamsProps {
-  teams: Team[];
+  teams: ITeam[];
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch('https://statsapi.web.nhl.com/api/v1/teams');
+  const res = await fetch('https://api-web.nhle.com/v1/standings/now');
   const data = await res.json();
 
   return {
-    props: { teams: data.teams }
+    props: { teams: data.standings }
   }
 }
 
@@ -26,26 +26,33 @@ const Teams = ({ teams }: TeamsProps) => {
     setInputText(e.target.value);
   }
 
-  const filteredTeams = teams.filter((team) => team.name.toLowerCase().includes(inputText.toLowerCase()));
+  const filteredTeams = teams.filter((team) => team.teamName.default.toLowerCase().includes(inputText.toLowerCase()));
 
   return (
     <>
       <BackButton href='/' text='Home' />
       <SearchBarContainer
-        headerText='NHL Teams'
+        headerText='NHL Team Standings'
         placeholder='Search for a team...'
         value={inputText}
         onChange={onInputChange} 
       />
       {filteredTeams.map(
-          (team: Team) => {
+          (team: ITeam) => {
             return (
-              <Link href={`/teams/${team.id}`} key={team.id} data-testid='teamLink'>
+              <Link href={`/teams/${team.teamAbbrev.default}`} key={team.teamAbbrev.default} data-testid='teamLink'>
                 <div className={styles.teamContent}>
-                  <a>
-                    <h2>{team.name}</h2>
-                    <p>{`${team.conference.name} Conference`}</p>
-                    <p>{`${team.division.name} Division`}</p>
+                  <a className={styles.displayFlex}>
+                    <div>
+                      <h2>{team.teamName.default}</h2>
+                      <p>{`${team.conferenceName} Conference`}</p>
+                      <p>{`${team.divisionName} Division`}</p>
+                    </div>
+                    <div>
+                      <p>{`${team.wins} Wins`}</p>
+                      <p>{`${team.losses} Losses`}</p>
+                      <p>{`${team.ties} Ties`}</p>
+                    </div>
                   </a>
                 </div>
               </Link>

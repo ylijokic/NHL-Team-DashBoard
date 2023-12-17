@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className='footer'>2022</div>
+    <div className='footer'>2023</div>
   )
 }
 
