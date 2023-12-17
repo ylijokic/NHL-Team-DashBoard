@@ -2,12 +2,14 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import Image from 'next/image';
 import styles from '../../../../styles/Players.module.css';
-import { Player } from '../../../../types/Player';
 import BackButton from '../../../../components/BackButton';
 import PlayerDetails from '../../../../components/PlayerDetails';
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
-import { ITeam } from '../../../../types/Team';
+import { GetServerSideProps } from 'next';
+import { Player } from '../../../../types/Player';
 
+export interface PlayerInfoProps {
+  player: Player;
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { teamId, playerId } = context.query;
@@ -22,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-const PlayerInfo = ({ player }: any) => {
+const PlayerInfo = ({ player }: PlayerInfoProps) => {
   const router = useRouter();
   const { teamId } = router.query;
 
