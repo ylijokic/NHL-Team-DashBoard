@@ -1,5 +1,5 @@
 import React from 'react';
-import { ITeam } from '../../../types/Team';
+import { Team } from '../../../types/Team';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import styles from '../../../styles/Teams.module.css';
 import Link from 'next/link';
@@ -7,14 +7,14 @@ import Image from 'next/image';
 import BackButton from '../../../components/BackButton';
 
 export interface TeamInfoProps {
-  team: ITeam;
+  team: Team;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch('https://api-web.nhle.com/v1/standings/now');
   const data = await res.json();
 
-  const paths = data.standings.map((team: ITeam) => {
+  const paths = data.standings.map((team: Team) => {
     return {
       params: { teamId: team.teamAbbrev.default }
     }
@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const teamId = context.params?.teamId;
   const res = await fetch(`https://api-web.nhle.com/v1/standings/now`);
   const data = await res.json();
-  const team: ITeam = data.standings.find((t: ITeam) => t.teamAbbrev.default === teamId);
+  const team: Team = data.standings.find((t: Team) => t.teamAbbrev.default === teamId);
 
   return {
     props: { team: team }

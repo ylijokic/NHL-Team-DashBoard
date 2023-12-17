@@ -2,7 +2,7 @@ import React from 'react'
 import { Player } from '../types/Player';
 
 interface PlayerDetailsProps {
-    player: Player | any;
+    player: Player;
 }
 
 const PlayerDetails = ({ player }: PlayerDetailsProps) => {

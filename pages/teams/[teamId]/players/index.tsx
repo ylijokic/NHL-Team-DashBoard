@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styles from '../../../../styles/Players.module.css';
-// import { Roster } from '../../../../types/Team';
 import BackButton from '../../../../components/BackButton';
 import SearchBarContainer from '../../../../components/SearchBarContainer';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { ITeam } from '../../../../types/Team';
+import { Team } from '../../../../types/Team';
+import { Player } from '../../../../types/Player';
+
+export interface RosterInfoProps {
+  roster: Player[];
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch('https://api-web.nhle.com/v1/standings/now');
   const data = await res.json();
 
-  const paths = data.standings.map((team: ITeam) => {
+  const paths = data.standings.map((team: Team) => {
     return {
       params: { teamId: team.teamAbbrev.default }
     }
@@ -35,8 +39,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-const RosterInfo = ({ roster }: any) => {
-  const [players, setPlayers] = useState<any[]>(roster);
+const RosterInfo = ({ roster }: RosterInfoProps) => {
+  const [players, setPlayers] = useState<Player[]>(roster);
   const [inputText, setInputText] = useState<string>('');
 
   const router = useRouter();
@@ -59,7 +63,7 @@ const RosterInfo = ({ roster }: any) => {
         value={inputText}
         onChange={onInputChange} 
       />
-      {filteredplayers && filteredplayers.map((player: any) => {
+      {filteredplayers && filteredplayers.map((player: Player) => {
         const { id, sweaterNumber, positionCode, firstName, lastName } = player;
         const displayNumber = sweaterNumber ? `(#${sweaterNumber})` : '';
         return (

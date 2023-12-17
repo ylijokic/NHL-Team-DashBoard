@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { GetStaticProps } from 'next';
 import styles from '../../styles/Teams.module.css';
 import Link from 'next/link';
-import { ITeam, Team } from '../../types/Team';
+import { Team } from '../../types/Team';
 import BackButton from '../../components/BackButton';
 import SearchBarContainer from '../../components/SearchBarContainer';
 
 export interface TeamsProps {
-  teams: ITeam[];
+  teams: Team[];
 }
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -38,7 +38,7 @@ const Teams = ({ teams }: TeamsProps) => {
         onChange={onInputChange} 
       />
       {filteredTeams.map(
-          (team: ITeam) => {
+          (team: Team) => {
             return (
               <Link href={`/teams/${team.teamAbbrev.default}`} key={team.teamAbbrev.default} data-testid='teamLink'>
                 <div className={styles.teamContent}>
