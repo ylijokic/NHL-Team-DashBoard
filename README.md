@@ -48,13 +48,10 @@ yarn dev
 - Cypress
 - Jest
 
-# Notes / Future Steps
+# Notes
 1. Searching through the list of Teams and Players is implemented on the client side with component state and the useState hook.
    - There is no need for a state management library for such a small application, but as the amount of component-level state grows a library like Redux could be introduced.
 2. Utilizing the API endpoint modifiers could be a good way to pull in more information and build out additional features.
    - The `?expand=team.stats` and `?stats=statsSingleSeason&season={playerId}` endpoint modifiers would be a good way to add additional information for users who are mostly interested in NHL team and player stats.
-3. Due to time constraints, the testing coverage of this application is limited to the cypress e2e tests. Adding integration and unit test coverage for the different components and pages would be a priority next step. Initial steps taken for Unit/Integration testing are: 
-   - Installed dependencies for Jest and React Testing Library.
-   - Added `data-testid` to elements where DOM access to elements would be helpful for running tests (ex. validating player information).
 
 
